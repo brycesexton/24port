@@ -14,7 +14,7 @@ export default function App() {
     const createBookmark = async () => {
         const body = { ...newBookmark }
         try {
-            const response = await fetch('/api/bookmarks', {
+            const response = await fetch('/bookmarks', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ export default function App() {
 
     const deleteBookmark = async (id) => {
         try {
-            const response = await fetch(`/api/bookmarks/${id}`, {
+            const response = await fetch(`/bookmarks/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ export default function App() {
 
     const getBookmarks = async () => {
         try {
-            const response = await fetch('/api/bookmarks')
+            const response = await fetch('/bookmarks')
             if (!response.ok) throw new Error('Bad response')
             const data = await response.json()
             setBookmarks(data.reverse())
@@ -65,7 +65,7 @@ export default function App() {
     //NEW NOT WORKING
     const signUp = async (credentials) => {
         try {
-        const response  =  await fetch('/api/userRouter', {
+        const response  =  await fetch('/userRouter', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -85,7 +85,7 @@ export default function App() {
     //NEW NOT WORKING
     const login = async (credentials) => {
         try {
-            const response = await fetch('/api/userRouter/login', {
+            const response = await fetch('/userRouter/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type':'application/json'

@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const userController = require('../controllers/api/userController')
-const playlistController = require('../controllers/api/bookmarkController')
+const userController = require('../controllers/userController')
+const playlistController = require('../controllers/bookmarkController')
 
 router.post('/', userController.createUser)
 router.post('/login', userController.loginUser)

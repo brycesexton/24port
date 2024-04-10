@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const bookmarkCtrl = require('../../controllers/api/bookmarkController')
+const bookmarkCtrl = require('../controllers/bookmarkController')
 
 router.get('/', bookmarkCtrl.index, bookmarkCtrl.jsonBookmarks)
 router.post('/', bookmarkCtrl.create, bookmarkCtrl.jsonBookmark)
