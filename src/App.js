@@ -1,112 +1,124 @@
 import { useState, useEffect } from 'react'
-import TodoList from './components/TodoList/TodoList'
+import BookmarkList from './pages/ListOfBookmarks/BookmarkList'
+import SignUp from './pages/SignUp/SignUp'
 import styles from './App.module.scss'
 
+export default function App() {
+    const [bookmarks, setBookmarks] = useState([])
+    const [newBookmark, setNewBookmark] = useState({ title: '', url: '' })
 
-export default function App(){
-    const [todos, setTodos] = useState([])
-    const [completedTodos, setCompletedTodos] = useState([])
-    const [newTodo, setNewTodo] = useState({
-        title: '',
-        completed: false
-    })
+    //NEW NOT WORKING
+    const [user, setUser] = useState(null)
+    const [token, setToken] = useState('')
 
-    //createTodos
-    const createTodo = async () => {
-        const body = {...newTodo}
+    const createBookmark = async () => {
+        const body = { ...newBookmark }
         try {
-            const response = await fetch('/api/todos', {
+            const response = await fetch('/api/bookmarks', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(body)
-            })
-            const createdTodo = await response.json()
-            const todosCopy = [createdTodo,...todos]
-            setTodos(todosCopy)
-            setNewTodo({
-                title: '',
-                completed: false
-            })
-        } catch (error) {   
-            console.error(error)
+                body: JSON.stringify(body),
+            });
+            if (!response.ok) throw new Error('Bad response')
+            const createdBookmark = await response.json()
+            setBookmarks((prevBookmarks) => [createdBookmark, ...prevBookmarks])
+            setNewBookmark({ title: '', url: '' })
+        } catch (error) {
+            console.error('Failed', error)
         }
     }
-    //deleteTodos
-    const deleteTodo = async (id) => {
+
+    const updateBookmark = async (id, bookmarkToUpdate) => {
+
+    }
+
+    const deleteBookmark = async (id) => {
         try {
-            const index = completedTodos.findIndex((todo) => todo._id === id)
-            const completedTodosCopy = [...completedTodos]
-            const response = await fetch(`/api/todos/${id}`, {
+            const response = await fetch(`/api/bookmarks/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
-                }
-            })
-            await response.json()
-            completedTodosCopy.splice(index, 1)
-            setCompletedTodos(completedTodosCopy)
-        } catch (error) {
-            console.error(error)
-        }
-    }
-    //moveToCompleted
-    const moveToCompleted = async (id) => {
-        try {
-            const index = todos.findIndex((todo) => todo._id === id)
-            const todosCopy = [...todos]
-            const subject = todosCopy[index]
-            subject.completed = true 
-            const response = await fetch(`/api/todos/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(subject)
             })
-            const updatedTodo = await response.json()
-            const completedTDsCopy = [updatedTodo, ...completedTodos]
-            setCompletedTodos(completedTDsCopy)
-            todosCopy.splice(index, 1)
-            setTodos(todosCopy)
+            if (!response.ok) {
+                throw new Error(`Failed to delete ${id}: ${response.statusText}`)
+            }
+            setBookmarks(prevBookmarks => prevBookmarks.filter(bookmark => bookmark._id !== id))
         } catch (error) {
-            console.error(error)
+            console.error('Error deleting', error)
         }
     }
-    //getTodos
-    const getTodos = async () => {
-        try{
-            const response = await fetch('/api/todos')
-            const foundTodos = await response.json()
-            setTodos(foundTodos.reverse())
-            console.log('hey')
-            const responseTwo = await fetch('/api/todos/completed')
-            const foundCompletedTodos = await responseTwo.json()
-            setCompletedTodos(foundCompletedTodos.reverse())
-        } catch(error){
-            console.error(error)
+
+    const getBookmarks = async () => {
+        try {
+            const response = await fetch('/api/bookmarks')
+            if (!response.ok) throw new Error('Bad response')
+            const data = await response.json()
+            setBookmarks(data.reverse())
+        } catch (error) {
+            console.error('Failed to fetch', error)
         }
+    };
+
+    //NEW NOT WORKING
+    const signUp = async (credentials) => {
+        try {
+        const response  =  await fetch('/api/userRouter', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+            })
+       const data = await response.json()
+            setUser(data.user)
+            setToken(data.token)
+            localStorage.setItem('token', data.token)
+            localStorage.setItem('user', JSON.stringify(data.user))
+    }   
+        catch (error) {
+        console.error(error)
     }
+}
+    //NEW NOT WORKING
+    const login = async (credentials) => {
+        try {
+            const response = await fetch('/api/userRouter/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify(credentials)
+            })
+        const data = await response.json()
+        const tokenData = data.token;
+            localStorage.setItem('token', tokenData)
+            setToken(tokenData)
+            const userData = data.user
+            localStorage.setItem('user', JSON.stringify(userData));
+            setUser(userData)
+    }   
+        catch (error) {
+        console.error(error)
+    }    
+}
+
     useEffect(() => {
-        getTodos()
+        getBookmarks()
     }, [])
-    return(
-        <>
-			
-            <div className={styles.banner}>
-                <h1>The World Famous Big Poppa Code React Starter Kit</h1>
-              <img src='https://i.imgur.com/5WXigZL.jpg'/>
-            </div>
-            <TodoList
-            newTodo={newTodo}
-            setNewTodo={setNewTodo}
-            createTodo={createTodo}
-            todos={todos}
-            moveToCompleted={moveToCompleted}
-            completedTodos={completedTodos}
-            deleteTodo={deleteTodo}
+
+    return (
+        <div className={styles.App}>
+            <BookmarkList
+                newBookmark={newBookmark}
+                setNewBookmark={setNewBookmark}
+                createBookmark={createBookmark}
+                bookmarks={bookmarks}
+                updateBookmark={updateBookmark}
+                deleteBookmark={deleteBookmark}
             />
-        </>
+        </div>
     )
 }
