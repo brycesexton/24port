@@ -5,8 +5,9 @@ const Bookmark = ({ bookmark, deleteBookmark }) => {
     const [editMode, setEditMode] = useState(false)
     const [title, setTitle] = useState(bookmark.title)
     const [url, setUrl] = useState(bookmark.url)
+    const [description, setDescription] = useState(bookmark.description)
 
-    const bookmarkIconUrl = 'https://endlessicons.com/wp-content/uploads/2014/03/bookmark-icon-1-614x460.png'
+    const bookmarkIconUrl = 'https://cdn-icons-png.flaticon.com/128/4257/4257460.png'
     const goButtonIconUrl = 'https://cdn3.iconfinder.com/data/icons/web-ui-3/128/Globe-2-512.png'
     const editButtonIconUrl = 'https://cdn3.iconfinder.com/data/icons/web-ui-3/128/Compose-2-512.png'
     const deleteButtonIconUrl = 'https://cdn3.iconfinder.com/data/icons/web-ui-3/128/Close-2-512.png'
@@ -20,6 +21,11 @@ const Bookmark = ({ bookmark, deleteBookmark }) => {
                         className={styles.input}
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
+                    />
+                    <input
+                        className={styles.input}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                     />
                     <input
                         className={styles.input}

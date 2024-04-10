@@ -1,5 +1,5 @@
 .bookmarkContainer {
-  background-color: rgba(210, 180, 140, 0.92);
+  background-color: rgb(239,239,239);
   padding: 1rem;
   border-radius: 5px;
   margin-bottom: 1rem;
@@ -20,8 +20,9 @@
     justify-content: left;
 
     .bookmarkIcon {
-      width: 35px; 
-      height: 35px;
+      width: 30px; 
+      height: 30px;
+      margin-right: 4px;
   }
 }
 

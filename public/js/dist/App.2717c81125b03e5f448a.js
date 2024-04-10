@@ -318,7 +318,8 @@ const Bookmark = _ref => {
   const [editMode, setEditMode] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [title, setTitle] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(bookmark.title);
   const [url, setUrl] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(bookmark.url);
-  const bookmarkIconUrl = 'https://endlessicons.com/wp-content/uploads/2014/03/bookmark-icon-1-614x460.png';
+  const [description, setDescription] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(bookmark.description);
+  const bookmarkIconUrl = 'https://cdn-icons-png.flaticon.com/128/4257/4257460.png';
   const goButtonIconUrl = 'https://cdn3.iconfinder.com/data/icons/web-ui-3/128/Globe-2-512.png';
   const editButtonIconUrl = 'https://cdn3.iconfinder.com/data/icons/web-ui-3/128/Compose-2-512.png';
   const deleteButtonIconUrl = 'https://cdn3.iconfinder.com/data/icons/web-ui-3/128/Close-2-512.png';
@@ -329,6 +330,10 @@ const Bookmark = _ref => {
     className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].input,
     value: title,
     onChange: e => setTitle(e.target.value)
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].input,
+    value: description,
+    onChange: e => setDescription(e.target.value)
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     className: _Bookmark_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].input,
     value: url,
@@ -408,7 +413,7 @@ function _toPrimitive(t, r) { if ("object" != typeof t || !t) return t; var e = 
 
 
 
-const iconUrl = 'https://endlessicons.com/wp-content/uploads/2014/03/bookmark-icon-1-614x460.png';
+const iconUrl = 'https://previews.dropbox.com/p/thumb/ACPwLlzomnznSWXyn4T1_3qZ5qjh7-ZRMGKvRP8YEHGrQt0aP2X9URkAhc4OjRzELM4SEmGWiACsHZaGAQrAY3Il4eJCLuSbv81zJ499jzX5zMmRpP58AvmuoFPGY13lq84zNlSgc4UGOWNhlCJp2HfmkyQBb6gDLRMcQAcib60E8HgHoPqIR6mgMDeUDQo614Ijr7NWj9EdtuTm3BKDOKvpX3liNT0weHQw40--X4n1_GMUN9mEFqo08y08MX23fPXvZ3DzI0iQT0XIP1KC0RZA2Ekqc5HItKLuSrC0gann7VFd-dhig5v3_5nHA_A0B8uxqQNGYHK_6vBvQWB7a51D/p.png';
 function BookmarkList(_ref) {
   let {
     newBookmark,
@@ -425,11 +430,11 @@ function BookmarkList(_ref) {
   }
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].headerContainer
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "BOOKMARKS"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
     src: iconUrl,
     alt: "Bookmark Icon",
     className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].bookmarkIcon
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "DEVELOPER PORTFOLIO")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].container
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].inputContainer
@@ -437,12 +442,28 @@ function BookmarkList(_ref) {
     className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].titleContainer
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
     className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].siteName
-  }, "SITE NAME"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+  }, "Project Name"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].input,
     type: "text",
     value: newBookmark.title,
     onChange: e => setNewBookmark(_objectSpread(_objectSpread({}, newBookmark), {}, {
       title: e.target.value
+    })),
+    onKeyDown: e => {
+      if (e.key === 'Enter') {
+        handleCreateBookmark();
+      }
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].titleContainer
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
+    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].siteName
+  }, "Description"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    className: _BookmarkList_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].input,
+    type: "text",
+    value: newBookmark.description,
+    onChange: e => setNewBookmark(_objectSpread(_objectSpread({}, newBookmark), {}, {
+      description: e.target.value
     })),
     onKeyDown: e => {
       if (e.key === 'Enter') {
@@ -529,12 +550,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: tan;
+  background-color: black;
   margin: 0.5rem;
   padding: 1rem;
   border: 4px solid black;
   border-radius: 6px;
-}`, "",{"version":3,"sources":["webpack://./src/App.module.scss"],"names":[],"mappings":"AAAA;EACI,SAAA;EACA,iBAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,qBAAA;EACA,cAAA;EACA,aAAA;EACA,uBAAA;EACA,kBAAA;AACJ","sourcesContent":["body {\n    margin: 0;\n    min-height: 100vh;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    background-color: tan;\n    margin: .5rem;\n    padding: 1rem;\n    border: 4px solid black;\n    border-radius: 6px;\n}\n"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/App.module.scss"],"names":[],"mappings":"AAAA;EACI,SAAA;EACA,iBAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,cAAA;EACA,aAAA;EACA,uBAAA;EACA,kBAAA;AACJ","sourcesContent":["body {\n    margin: 0;\n    min-height: 100vh;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    background-color:  black;\n    margin: .5rem;\n    padding: 1rem;\n    border: 4px solid black;\n    border-radius: 6px;\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
@@ -641,7 +662,7 @@ ___CSS_LOADER_EXPORT___.locals = {
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.sJ6qn1dnpDKJTkaDmNSu {
-  background-color: rgba(210, 180, 140, 0.92);
+  background-color: rgb(239, 239, 239);
   padding: 1rem;
   border-radius: 5px;
   margin-bottom: 1rem;
@@ -662,8 +683,9 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.sJ6qn1dnpDKJTkaDmNSu {
   justify-content: left;
 }
 .sJ6qn1dnpDKJTkaDmNSu .uPyNSlx3ZQJzl5DQqNTp .WNBQbPiL1bTJXXGM1CyE {
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
+  margin-right: 4px;
 }
 .sJ6qn1dnpDKJTkaDmNSu ._coYWkCGECxT05WnCqnA {
   background-color: black;
@@ -716,7 +738,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `.sJ6qn1dnpDKJTkaDmNSu {
   border: 1px solid #ccc;
   border-radius: 5px;
   width: calc(100% - 1rem);
-}`, "",{"version":3,"sources":["webpack://./src/pages/Bookmark/Bookmark.module.scss"],"names":[],"mappings":"AAAA;EACE,2CAAA;EACA,aAAA;EACA,kBAAA;EACA,mBAAA;EACA,gBAAA;EACA,iBAAA;EACA,uBAAA;EACA,mBAAA;EACA,aAAA;EACA,mBAAA;EACA,mBAAA;EACA,8BAAA;EACA,eAAA;EACA,QAAA;AACF;AACE;EACE,aAAA;EACA,mBAAA;EACA,qBAAA;AACJ;AACI;EACE,WAAA;EACA,YAAA;AACN;AAGA;EACE,uBAAA;EACA,UAAA;EACA,sBAAA;EACA,YAAA;EACA,kBAAA;EACA,eAAA;EACA,qBAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,cAAA;EACA,eAAA;EACA,WAAA;EACA,YAAA;EACA,gBAAA;AADF;AAEI;EACE,yBAAA;AAAN;AAIA;EACE,uBAAA;EACA,kBAAA;EACA,mBAAA;AAFF;AAIE;EACE,uBAAA;EACA,UAAA;EACA,sBAAA;EACA,YAAA;EACA,kBAAA;EACA,eAAA;EACA,qBAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,cAAA;EACA,eAAA;EACA,WAAA;EACA,YAAA;EACA,gBAAA;AAFJ;AAII;EACE,yBAAA;AAFN;AAOE;EACE,eAAA;EACA,qBAAA;EACA,sBAAA;EACA,kBAAA;EACA,wBAAA;AALJ","sourcesContent":[".bookmarkContainer {\n  background-color: rgba(210, 180, 140, 0.92);\n  padding: 1rem;\n  border-radius: 5px;\n  margin-bottom: 1rem;\n  text-align: left;\n  font-size: 1.2rem;\n  border: 8px solid black;\n  border-style: inset;\n  display: flex;\n  flex-direction: row; \n  align-items: center; \n  justify-content: space-between; \n  flex-wrap: wrap; \n  gap: 5px;\n\n  .titleWithIcon {\n    display: flex;\n    align-items: center;\n    justify-content: left;\n\n    .bookmarkIcon {\n      width: 35px; \n      height: 35px;\n  }\n}\n\n.saveButton {\n  background-color: black;\n  color: tan;\n  padding: 0.5rem .5rem;\n  border: none;\n  border-radius: 5px;\n  cursor: pointer;\n  text-decoration: none;\n  display: flex; \n  align-items: center;\n  justify-content: center;\n  margin: 0.5rem;\n  font-size: 1rem;\n  width: 26px;\n  height: 26px;\n  overflow: hidden;\n    &:hover {\n      background-color: darken(tan, 10%);\n  }\n}\n\n.buttonContainer {\n  border: 3px solid black;\n  border-radius: 5px;\n  border-style: inset;\n  \n  .button {\n    background-color: black;\n    color: tan;\n    padding: 0.5rem .5rem;\n    border: none;\n    border-radius: 5px;\n    cursor: pointer;\n    text-decoration: none;\n    display: flex; \n    align-items: center;\n    justify-content: center;\n    margin: 0.5rem;\n    font-size: 1rem;\n    width: 26px;\n    height: 26px;\n    overflow: hidden;\n\n    &:hover {\n      background-color: darken(tan, 10%);\n    }\n  }\n}\n\n  .input {\n    padding: 0.5rem;\n    margin-bottom: 0.5rem; \n    border: 1px solid #ccc;\n    border-radius: 5px;\n    width: calc(100% - 1rem); \n  }\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/pages/Bookmark/Bookmark.module.scss"],"names":[],"mappings":"AAAA;EACE,oCAAA;EACA,aAAA;EACA,kBAAA;EACA,mBAAA;EACA,gBAAA;EACA,iBAAA;EACA,uBAAA;EACA,mBAAA;EACA,aAAA;EACA,mBAAA;EACA,mBAAA;EACA,8BAAA;EACA,eAAA;EACA,QAAA;AACF;AACE;EACE,aAAA;EACA,mBAAA;EACA,qBAAA;AACJ;AACI;EACE,WAAA;EACA,YAAA;EACA,iBAAA;AACN;AAGA;EACE,uBAAA;EACA,UAAA;EACA,sBAAA;EACA,YAAA;EACA,kBAAA;EACA,eAAA;EACA,qBAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,cAAA;EACA,eAAA;EACA,WAAA;EACA,YAAA;EACA,gBAAA;AADF;AAEI;EACE,yBAAA;AAAN;AAIA;EACE,uBAAA;EACA,kBAAA;EACA,mBAAA;AAFF;AAIE;EACE,uBAAA;EACA,UAAA;EACA,sBAAA;EACA,YAAA;EACA,kBAAA;EACA,eAAA;EACA,qBAAA;EACA,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,cAAA;EACA,eAAA;EACA,WAAA;EACA,YAAA;EACA,gBAAA;AAFJ;AAII;EACE,yBAAA;AAFN;AAOE;EACE,eAAA;EACA,qBAAA;EACA,sBAAA;EACA,kBAAA;EACA,wBAAA;AALJ","sourcesContent":[".bookmarkContainer {\n  background-color: rgb(239,239,239);\n  padding: 1rem;\n  border-radius: 5px;\n  margin-bottom: 1rem;\n  text-align: left;\n  font-size: 1.2rem;\n  border: 8px solid black;\n  border-style: inset;\n  display: flex;\n  flex-direction: row; \n  align-items: center; \n  justify-content: space-between; \n  flex-wrap: wrap; \n  gap: 5px;\n\n  .titleWithIcon {\n    display: flex;\n    align-items: center;\n    justify-content: left;\n\n    .bookmarkIcon {\n      width: 30px; \n      height: 30px;\n      margin-right: 4px;\n  }\n}\n\n.saveButton {\n  background-color: black;\n  color: tan;\n  padding: 0.5rem .5rem;\n  border: none;\n  border-radius: 5px;\n  cursor: pointer;\n  text-decoration: none;\n  display: flex; \n  align-items: center;\n  justify-content: center;\n  margin: 0.5rem;\n  font-size: 1rem;\n  width: 26px;\n  height: 26px;\n  overflow: hidden;\n    &:hover {\n      background-color: darken(tan, 10%);\n  }\n}\n\n.buttonContainer {\n  border: 3px solid black;\n  border-radius: 5px;\n  border-style: inset;\n  \n  .button {\n    background-color: black;\n    color: tan;\n    padding: 0.5rem .5rem;\n    border: none;\n    border-radius: 5px;\n    cursor: pointer;\n    text-decoration: none;\n    display: flex; \n    align-items: center;\n    justify-content: center;\n    margin: 0.5rem;\n    font-size: 1rem;\n    width: 26px;\n    height: 26px;\n    overflow: hidden;\n\n    &:hover {\n      background-color: darken(tan, 10%);\n    }\n  }\n}\n\n  .input {\n    padding: 0.5rem;\n    margin-bottom: 0.5rem; \n    border: 1px solid #ccc;\n    border-radius: 5px;\n    width: calc(100% - 1rem); \n  }\n}"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"bookmarkContainer": `sJ6qn1dnpDKJTkaDmNSu`,
@@ -752,11 +774,11 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `h1 {
   font-size: 4.5rem;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
   text-align: center;
   padding-left: 3rem;
   margin-bottom: 1rem;
-  text-shadow: 1px 1px 2px #2e2e2e;
+  color: white;
+  text-shadow: 1px 1px 1px #bcbbbb;
 }
 
 .ZHIpF1Dl_YATnFZYMNaa {
@@ -765,14 +787,16 @@ ___CSS_LOADER_EXPORT___.push([module.id, `h1 {
   justify-content: center;
   position: relative;
   margin-top: -2rem;
+  margin-bottom: 1rem;
   animation: DtJDai6NBY3eJYmKed8Q 1.2s ease-out forwards;
 }
 
 .ZTtQYIgVHB5SY1KwdA6A {
-  width: 7rem;
-  height: 7rem;
+  width: 120px;
+  height: 120px;
   padding-left: 1rem;
   margin-top: 2.2rem;
+  overflow: hidden;
 }
 .ZTtQYIgVHB5SY1KwdA6A:hover {
   animation: QMcPWtSdML_0xCowcjpO 2s ease forwards infinite;
@@ -786,7 +810,6 @@ ___CSS_LOADER_EXPORT___.push([module.id, `h1 {
   padding: 10px;
   box-sizing: border-box;
   background-color: tan;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
   border-radius: 6px;
   text-shadow: 0px 0.2px 0.5px #2e2e2e;
 }
@@ -856,7 +879,7 @@ h3 {
     transform: scale(1);
     color: #000;
   }
-}`, "",{"version":3,"sources":["webpack://./src/pages/ListOfBookmarks/BookmarkList.module.scss"],"names":[],"mappings":"AAAA;EACE,iBAAA;EACA,qGAAA;EACA,kBAAA;EACA,kBAAA;EACA,mBAAA;EACA,gCAAA;AACF;;AACA;EACE,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,kBAAA;EACA,iBAAA;EACA,sDAAA;AAEF;;AACA;EACE,WAAA;EACA,YAAA;EACA,kBAAA;EACA,kBAAA;AAEF;AADE;EACE,yDAAA;AAGJ;;AACA;EACE,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,WAAA;EACA,aAAA;EACA,sBAAA;EACA,qBAAA;EACA,qGAAA;EAEA,kBAAA;EACA,oCAAA;AACF;;AAEA;EACE,aAAA;EACA,uBAAA;EACA,WAAA;AACF;;AAEA;EACE,aAAA;EACA,sBAAA;EACA,cAAA;AACF;;AAEA;EACE,YAAA;EACA,aAAA;EACA,kBAAA;AACF;;AAEA;EACE,eAAA;EACA,mBAAA;AACF;;AAEA;EACE,eAAA;EACA,mBAAA;AACF;;AAEA;EACE,gBAAA;EACA,kBAAA;AACF;;AAEA;EACE,WAAA;EACA,gBAAA;EACA,kBAAA;EACA,aAAA;EACA,sBAAA;EACA,kBAAA;AACF;;AAEA;EACE;IACE,UAAA;IACA,4BAAA;EACF;EACA;IACE,UAAA;IACA,wBAAA;EACF;AACF;AAEA;EACE;IACE,mBAAA;IACA,WAAA;EAAF;EAEA;IACE,qBAAA;IACA,UAAA;EAAF;EAEA;IACE,mBAAA;IACA,WAAA;EAAF;AACF","sourcesContent":["h1 {\n  font-size: 4.5rem;\n  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\n  text-align: center; \n  padding-left: 3rem;\n  margin-bottom: 1rem;\n  text-shadow: 1px 1px 2px #2e2e2e;\n}\n.headerContainer {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  position: relative;\n  margin-top: -2rem;\n  animation: fadeDown 1.2s ease-out forwards;\n}\n\n.bookmarkIcon {\n  width: 7rem; \n  height: 7rem;\n  padding-left: 1rem;\n  margin-top: 2.2rem;\n  &:hover {\n    animation: pulse 2s ease forwards infinite;\n  }\n}\n\n.container {\n  display: flex;\n  flex-direction: column; \n  align-items: center; \n  width: 100%; \n  padding: 10px;\n  box-sizing: border-box;\n  background-color: tan;\n  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;\n\n  border-radius: 6px;\n  text-shadow: 0px .2px .5px #2e2e2e;\n}\n\n.inputContainer {\n  display: flex;\n  justify-content: center; \n  width: 100%; \n}\n\n.titleContainer, .urlContainer {\n  display: flex;\n  flex-direction: column;\n  margin: 0 10px; \n}\n\n.input {\n  padding: 8px;\n  margin: 5px 0; \n  border-radius: 4px;\n}\n\n.siteName {\n  font-size: 15px;\n  margin-bottom: -1px;\n}\n\n.siteUrl {\n  font-size: 15px;\n  margin-bottom: -1px;\n}\n\nh3 {\n  text-align: left; \n  margin-top: .5rem;\n}\n\n.bookmarksContainer {\n  width: 100%; \n  margin-top: 20px; \n  text-align: center; \n  padding: 10px;\n  box-sizing: border-box;\n  border-radius: 8px;\n}\n\n@keyframes fadeDown {\n  from {\n    opacity: 0;\n    transform: translateY(-15px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n\n@keyframes pulse {\n  0% {\n    transform: scale(1);\n    color: #000; \n  }\n  50% {\n    transform: scale(1.1);\n    color: tan; \n  }\n  100% {\n    transform: scale(1);\n    color: #000; \n  }\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/pages/ListOfBookmarks/BookmarkList.module.scss"],"names":[],"mappings":"AAAA;EACE,iBAAA;EACA,kBAAA;EACA,kBAAA;EACA,mBAAA;EACA,YAAA;EACA,gCAAA;AACF;;AACA;EACE,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,kBAAA;EACA,iBAAA;EACA,mBAAA;EACA,sDAAA;AAEF;;AACA;EACE,YAAA;EACA,aAAA;EACA,kBAAA;EACA,kBAAA;EACA,gBAAA;AAEF;AADE;EACE,yDAAA;AAGJ;;AACA;EACE,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,WAAA;EACA,aAAA;EACA,sBAAA;EACA,qBAAA;EACA,kBAAA;EACA,oCAAA;AAEF;;AACA;EACE,aAAA;EACA,uBAAA;EACA,WAAA;AAEF;;AACA;EACE,aAAA;EACA,sBAAA;EACA,cAAA;AAEF;;AACA;EACE,YAAA;EACA,aAAA;EACA,kBAAA;AAEF;;AACA;EACE,eAAA;EACA,mBAAA;AAEF;;AACA;EACE,eAAA;EACA,mBAAA;AAEF;;AACA;EACE,gBAAA;EACA,kBAAA;AAEF;;AACA;EACE,WAAA;EACA,gBAAA;EACA,kBAAA;EACA,aAAA;EACA,sBAAA;EACA,kBAAA;AAEF;;AACA;EACE;IACE,UAAA;IACA,4BAAA;EAEF;EAAA;IACE,UAAA;IACA,wBAAA;EAEF;AACF;AACA;EACE;IACE,mBAAA;IACA,WAAA;EACF;EACA;IACE,qBAAA;IACA,UAAA;EACF;EACA;IACE,mBAAA;IACA,WAAA;EACF;AACF","sourcesContent":["h1 {\n  font-size: 4.5rem;\n  text-align: center; \n  padding-left: 3rem;\n  margin-bottom: 1rem;\n  color: white;\n  text-shadow: 1px 1px 1px #bcbbbb;\n}\n.headerContainer {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  position: relative;\n  margin-top: -2rem;\n  margin-bottom: 1rem;\n  animation: fadeDown 1.2s ease-out forwards;\n}\n\n.bookmarkIcon {\n  width: 120px;\n  height: 120px;\n  padding-left: 1rem;\n  margin-top: 2.2rem;\n  overflow: hidden;\n  &:hover {\n    animation: pulse 2s ease forwards infinite;\n  }\n}\n\n.container {\n  display: flex;\n  flex-direction: column; \n  align-items: center; \n  width: 100%; \n  padding: 10px;\n  box-sizing: border-box;\n  background-color: tan;\n  border-radius: 6px;\n  text-shadow: 0px .2px .5px #2e2e2e;\n}\n\n.inputContainer {\n  display: flex;\n  justify-content: center; \n  width: 100%; \n}\n\n.titleContainer, .urlContainer {\n  display: flex;\n  flex-direction: column;\n  margin: 0 10px; \n}\n\n.input {\n  padding: 8px;\n  margin: 5px 0; \n  border-radius: 4px;\n}\n\n.siteName {\n  font-size: 15px;\n  margin-bottom: -1px;\n}\n\n.siteUrl {\n  font-size: 15px;\n  margin-bottom: -1px;\n}\n\nh3 {\n  text-align: left; \n  margin-top: .5rem;\n}\n\n.bookmarksContainer {\n  width: 100%; \n  margin-top: 20px; \n  text-align: center; \n  padding: 10px;\n  box-sizing: border-box;\n  border-radius: 8px;\n}\n\n@keyframes fadeDown {\n  from {\n    opacity: 0;\n    transform: translateY(-15px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n\n@keyframes pulse {\n  0% {\n    transform: scale(1);\n    color: #000; \n  }\n  50% {\n    transform: scale(1.1);\n    color: tan; \n  }\n  100% {\n    transform: scale(1);\n    color: #000; \n  }\n}"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"headerContainer": `ZHIpF1Dl_YATnFZYMNaa`,
@@ -1313,4 +1336,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=App.72bac27ccd7e9c8b89c8ca3322d28f76.js.map
+//# sourceMappingURL=App.d2bf1db99af33f3477172fdc0b86b876.js.map
